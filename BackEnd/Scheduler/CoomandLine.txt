@@ -1,0 +1,2 @@
+#clear cache  
+rmdir /s /q nbproject\private

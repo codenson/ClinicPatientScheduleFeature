@@ -30,22 +30,17 @@ public class AppController {
        
     }
      
-     public boolean reservation(){
-         return clinicCalender.patientreservation(patientSchedule.getPatientCalendar()); 
-         
-     }
-  
+//     public boolean reservation(){
+//         return clinicCalender.patientreservation(patientSchedule.getPatientCalendar()); 
+//         
+//     }
+//  
 
     
     @GetMapping("/")
     public String helloWorld(){
-     
-        System.err.println("Matrix : " + Arrays.deepToString(clinicCalender.getCalendar()));
-        
-       
-      
-        
-        return reservation()+""; 
+ 
+        return "Server is Alive"; 
     
     
     }
@@ -66,16 +61,29 @@ public class AppController {
     // TODO: update clinicCalender with newSchedule
     return "Schedule updated successfully!";
    }
-    
-    @GetMapping("/patientReservation")
+      @GetMapping("/patientReservation")
     public int [][] setPatientReservation(){
-        System.out.println("com.Scheduler.AppController.setPatientReservation()");
-   boolean check  =  clinicCalender.patientreservation(patientSchedule.getPatientCalendar()); 
-        System.out.println("com.Scheduler.AppController.setPatientReservation()   :  "  + check);
+       // System.out.println("com.Scheduler.AppController.setPatientReservation()");
+     if (clinicCalender.patientreservation(patientSchedule.getPatientCalendar())){
+          return clinicCalender.getCalendar(); 
+     
+     
+     } 
+        //System.out.println("com.Scheduler.AppController.setPatientReservation()   :  "  + check);
     
-    return clinicCalender.getCalendar(); 
+    return null; 
     
     }
+    
+//    @GetMapping("/patientReservation")
+//    public int [][] setPatientReservation(){
+//       // System.out.println("com.Scheduler.AppController.setPatientReservation()");
+//    boolean check  =  clinicCalender.patientreservation(patientSchedule.getPatientCalendar()); 
+//        //System.out.println("com.Scheduler.AppController.setPatientReservation()   :  "  + check);
+//    
+//    return clinicCalender.getCalendar(); 
+//    
+//    }
     
     @GetMapping("patientCalendar")
     public int [][] getPatientCalendar(){

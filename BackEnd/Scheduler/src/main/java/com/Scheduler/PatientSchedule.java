@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component 
 public class PatientSchedule {
     
-    static int [][] patientCalendar ; 
+    private int [][] patientCalendar ; 
     public PatientSchedule(){
         initilize2DArray(); 
     }
@@ -37,9 +37,7 @@ public class PatientSchedule {
                     {1,0,1,0}, 
                     {1,0,1,0}
                     }; 
-       
-       
-       
+
        }
        
        public int [][] getPatientCalendar(){
