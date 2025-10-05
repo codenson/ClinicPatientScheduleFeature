@@ -3,67 +3,84 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.Scheduler;
+
 import org.springframework.stereotype.Component;
 
-
-
 /**
+ * Represents a patient's appointment schedule as a 2D matrix.
+ *
+ * <p>
+ * The patient calendar uses the following semantics:</p>
+ * <ul>
+ * <li>1 = patient requests this time slot</li>
+ * <li>0 = patient is available (no appointment needed)</li>
+ * </ul>
+ *
+ * <p>
+ * This component is automatically initialized with a predefined schedule upon
+ * instantiation. The schedule can be retrieved or updated as needed.</p>
  *
  * @author guero
  */
-@Component 
+@Component
 public class PatientSchedule {
-    
-    private int [][] patientCalendar ; 
-    public PatientSchedule(){
-        initilize2DArray(); 
-    }
-       public void initilize2DArray(){
-           
-                   patientCalendar = new int [][]
-                   {{1,0,1,0},
-                    {1,0,1,0}, 
-                    {1,0,1,0}, 
-                    {0,1,1,0}, 
-                    {0,1,1,0}, 
-                    {0,0,1,0}, 
-                    {0,0,1,0}, 
-                    {0,0,1,0}, 
-                    {0,0,1,0}, 
-                    {0,0,1,1},
-                    {0,0,1,1},
-                    {0,0,1,1},  
-                    {0,0,1,1},
-                    {1,0,1,0}, 
-                    {1,0,1,0}
-                    }; 
 
-       }
-       
-       public int [][] getPatientCalendar(){
-       
-         return this.patientCalendar; 
-       }
-        public void parseMatrixSum(){
-     //   System.err.println("Cal*********************** "+ patientCalendar.length + " calll : row : "+ patientCalendar[0].length );
-        
-//        for (int i  = 0; i < patientCalendar.length ; i++){
-//            int sum = 0; 
-//            for (int  j =  0; j < patientCalendar[i].length-1; j++){
-//                
-//                sum += patientCalendar[i][j];
-//                System.err.println("sum : "+ sum );
-//            
-//            }
-//            patientCalendar[i][patientCalendar[0].length-1]= sum; 
-//        }
-//        
-//    
-    
+    /**
+     * Patient calendar 2D array. Holds patient's availability.
+     */
+    private int[][] patientCalendar;
+
+    /**
+     * *
+     * Constructor calls instantiatePatientCaledar method to instantiate the
+     * patient's calendar.
+     */
+    public PatientSchedule() {
+        instantiatePatientCaledar();
     }
-        public void updatePatientSchedule(int [][] updatedMatrix){
-            this.patientCalendar = updatedMatrix; 
-        
-        
-        }
+
+    /**
+     * Method to instantiate the patient's calendar.
+     */
+    public void instantiatePatientCaledar() {
+
+        patientCalendar = new int[][]{{1, 0, 1, 0},
+        {1, 0, 1, 0},
+        {1, 0, 1, 0},
+        {0, 1, 1, 0},
+        {0, 1, 1, 0},
+        {0, 0, 1, 0},
+        {0, 0, 1, 0},
+        {0, 0, 1, 0},
+        {0, 0, 1, 0},
+        {0, 0, 1, 1},
+        {0, 0, 1, 1},
+        {0, 0, 1, 1},
+        {0, 0, 1, 1},
+        {1, 0, 1, 0},
+        {1, 0, 1, 0}
+        };
+
+    }
+
+    /**
+     * Getter to get the patient calendar.
+     *
+     * @return the patient's calendar.
+     */
+    public int[][] getPatientCalendar() {
+
+        return this.patientCalendar;
+    }
+
+    /**
+     * *
+     * Method to update the Patient's schedule.
+     *
+     * @param updatedMatrix
+     */
+    public void updatePatientSchedule(int[][] updatedMatrix) {
+        this.patientCalendar = updatedMatrix;
+
+    }
 }
