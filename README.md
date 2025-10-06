@@ -6,8 +6,9 @@ A Spring Boot application that manages clinic appointment scheduling by matching
 
 This system solves the scheduling problem of finding available time slots for patients within a clinic's existing schedule. It uses a 2D matrix representation where appointments are checked for conflicts before being reserved.
 
-<img width="1170" height="387" alt="Image" src="https://github.com/user-attachments/assets/8beab732-39e5-425b-9b22-21ac10ff5a76" />
-<img width="1263" height="698" alt="Image" src="https://github.com/user-attachments/assets/754bbb61-575e-4357-b408-bc063de11711" />
+<img width="1263" height="698" alt="Image" src="https://github.com/user-attachments/assets/45d3d889-83b3-45ec-9387-c4d0d2458f92" />
+
+<img width="1170" height="387" alt="Image" src="https://github.com/user-attachments/assets/699d1b12-82cd-4b28-a3fd-ccd75d24c840" />
 
 ## Features
 
