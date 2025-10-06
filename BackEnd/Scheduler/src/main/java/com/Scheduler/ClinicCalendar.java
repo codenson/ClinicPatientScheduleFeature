@@ -23,21 +23,23 @@ import java.util.Arrays;
  */
 public class ClinicCalendar {
 
+    private final ExcelParser excelParser; 
     /**
      * The clinic calendar matrix. 0 = free, 1 = occupied.
      */
-    private int[][] calendar = {{1}};
+    private int[][] calendar ; 
     private int[][] compressedPatientcalendar = {{1}};
-
+    
+  
     /**
      * Default rows used when loading from Excel.
      */
-    private final int rows = 37;
-
-    /**
-     * Default columns used when loading from Excel.
-     */
-    private final int cols = 4;
+//    private final int rows = 37;
+//
+//    /**
+//     * Default columns used when loading from Excel.
+//     */
+//    private final int cols = 4;
 
     /**
      * The start row found for the last successful match, or -1 if none.
@@ -47,29 +49,39 @@ public class ClinicCalendar {
     /**
      * Path to calendar file on the classpath, injected from properties.
      */
-    @Value("${calendar.file.path}")
-    private String filePath;
+//    @Value("${calendar.file.path}")
+//    private String filePath;
 /**
  * Loads the clinic calendar from Excel file on startup.
  * Initializes empty calendar if file loading fails.
  */
-    @PostConstruct
-    public void init() {
+//    @PostConstruct
+//    public void init() {
+//    
+//
+//        try {
+//            ClassPathResource resource = new ClassPathResource(filePath);
+//
+//            try (InputStream is = resource.getInputStream()) {
+//                loadFromExcel(is);
+// 
+//                printMatrixValues();
+//            }
+//        } catch (IOException e) {
+//
+//            e.printStackTrace();
+//            calendar = new int[rows][cols];
+//        }
+//    }
+
     
-
-        try {
-            ClassPathResource resource = new ClassPathResource(filePath);
-
-            try (InputStream is = resource.getInputStream()) {
-                loadFromExcel(is);
- 
-                printMatrixValues();
-            }
-        } catch (IOException e) {
-
-            e.printStackTrace();
-            calendar = new int[rows][cols];
-        }
+      public ClinicCalendar(ExcelParser excelParser){
+        this.excelParser = excelParser; 
+  
+       calendar = excelParser.getParsedExcelTable(); 
+        
+    
+    
     }
 
     public void setUpcalendar(int[][] arr) {
@@ -77,43 +89,43 @@ public class ClinicCalendar {
 
     }
 
-    /**
-     * Replace the in-memory clinic calendar with the provided matrix.
-     * @param arr the new calendar matrix (rows x cols). Caller is responsible
-     * for ensuring valid dimensions.
-     */
-    private void loadFromExcel(InputStream is) throws IOException {
-        calendar = new int[rows][cols];
-
-        try (Workbook workbook = new XSSFWorkbook(is)) {
-            Sheet sheet = workbook.getSheetAt(0);
-            for (int i = 0; i < rows; i++) {
-                Row row = sheet.getRow(i);
-                if (row == null) {
-                    continue;
-                }
-                for (int j = 0; j < cols; j++) {
-                    Cell cell = row.getCell(j);
-                    if (cell == null) {
-                        calendar[i][j] = 0;
-                        continue;
-                    }
-                    if (cell.getCellType() == CellType.NUMERIC) {
-                        calendar[i][j] = (int) cell.getNumericCellValue();
-                    } else if (cell.getCellType() == CellType.STRING) {
-                        try {
-                            calendar[i][j] = Integer.parseInt(cell.getStringCellValue());
-                        } catch (NumberFormatException e) {
-                            calendar[i][j] = 0;
-                        }
-                    } else {
-                        calendar[i][j] = 0;
-                    }
-                }
-            }
-        }
-        
-    }
+//    /**
+//     * Replace the in-memory clinic calendar with the provided matrix.
+//     * @param arr the new calendar matrix (rows x cols). Caller is responsible
+//     * for ensuring valid dimensions.
+//     */
+//    private void loadFromExcel(InputStream is) throws IOException {
+//        calendar = new int[rows][cols];
+//
+//        try (Workbook workbook = new XSSFWorkbook(is)) {
+//            Sheet sheet = workbook.getSheetAt(0);
+//            for (int i = 0; i < rows; i++) {
+//                Row row = sheet.getRow(i);
+//                if (row == null) {
+//                    continue;
+//                }
+//                for (int j = 0; j < cols; j++) {
+//                    Cell cell = row.getCell(j);
+//                    if (cell == null) {
+//                        calendar[i][j] = 0;
+//                        continue;
+//                    }
+//                    if (cell.getCellType() == CellType.NUMERIC) {
+//                        calendar[i][j] = (int) cell.getNumericCellValue();
+//                    } else if (cell.getCellType() == CellType.STRING) {
+//                        try {
+//                            calendar[i][j] = Integer.parseInt(cell.getStringCellValue());
+//                        } catch (NumberFormatException e) {
+//                            calendar[i][j] = 0;
+//                        }
+//                    } else {
+//                        calendar[i][j] = 0;
+//                    }
+//                }
+//            }
+//        }
+//        
+//    }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    /**
     * Method to print the 2D Clinic's calendar. 
@@ -231,7 +243,7 @@ public class ClinicCalendar {
         // Patient calendar Compressed first
         int[][] compressedPatient = compressPatientCalendar(patientCalendar);
         if (compressedPatient.length == 0) {
-            foundStartRow = 0;
+            foundStartRow = -1;
             return true;
         }
 

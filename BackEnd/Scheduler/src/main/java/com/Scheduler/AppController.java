@@ -129,7 +129,7 @@ public class AppController {
      */
     @PostMapping("updatePatientCalendar")
     public String updatePatientSchedule(@RequestBody int[][] newSchedule) {;
-
+      
         patientSchedule.updatePatientSchedule(newSchedule);
 
         return "Schedule updated successfully!";
