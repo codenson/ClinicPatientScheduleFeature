@@ -242,20 +242,3 @@ The `foundStartRow` field stores the last successful match position. While state
 ### Early Exit Optimization
 
 The collision detection uses short-circuit evaluation (`&& !collision`) to exit early when conflicts are found, improving performance for densely occupied calendars.
-
-## Potential Improvements
-
-- Use proper logging framework (SLF4J) instead of `System.out.println`
-- Return proper HTTP status codes (201, 409) instead of `null`
-- Add request/response DTOs for cleaner API contracts
-- Implement thread-safe scheduling for concurrent requests
-- Add integration tests for REST endpoints
-- Support dynamic calendar dimensions
-
-## Author
-
-**guero**
-
-## License
-
-This project was created as a technical assessment for a junior software engineering position.
