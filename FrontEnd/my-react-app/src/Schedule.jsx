@@ -37,30 +37,31 @@ function Schedule() {
     }
   };
 
-  // Save clinic schedule
-  const saveSchedule = () => {
-    fetch("http://localhost:8080/UpdateCalender", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(schedule),
-    })
-      .then((res) => res.text())
-      .then((msg) => alert(msg))
-      .catch((err) => console.error(err));
-  };
+  const saveSchedule = async () => {
+    try {
+      // Saves both schedules in parallel
+      const [res1, res2] = await Promise.all([
+        fetch("http://localhost:8080/UpdateCalender", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(schedule),
+        }),
+        fetch("http://localhost:8080/updatePatientCalendar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(patientSchedule),
+        }),
+      ]);
 
-  // Save patient schedule
-  const savePatientSchedule = () => {
-    fetch("http://localhost:8080/updatePatientCalendar", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(patientSchedule),
-    })
-      .then((res) => res.text())
-      .then((msg) => {
-        alert(msg);
-      })
-      .catch((err) => console.error(err));
+      if (!res1.ok || !res2.ok) {
+        throw new Error("One or more requests failed.");
+      }
+
+      alert(`Schedule Saved`);
+    } catch (err) {
+      console.error(err);
+      alert("Error saving schedules. Please try again.");
+    }
   };
 
   // Schedule a patient (updates only clinic schedule)
@@ -195,13 +196,10 @@ function Schedule() {
 
       <div className="action-buttons">
         <button className="action-btn" onClick={saveSchedule}>
-          Save Clinic Schedule
+          Save
         </button>
         <button className="action-btn" onClick={schedulePatient}>
-          Schedule a Patient
-        </button>
-        <button className="action-btn" onClick={savePatientSchedule}>
-          Save Patient Schedule
+          Book Patient
         </button>
       </div>
     </div>

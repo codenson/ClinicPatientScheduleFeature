@@ -15,7 +15,11 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 
 /**
- *
+ * Repository responsible for loading clinic calendar data from Excel files.
+ * 
+ * <p>Parses schedule data from a configured Excel file during application startup
+ * and stores it in memory for retrieval by other components.</p>
+ * 
  * @author guero
  */
 @Repository
@@ -29,7 +33,10 @@ public class ExcelParser {
      * Default columns used when loading from Excel.
      */
     private final int cols = 4;
-      private int[][] calendar = {{1}};
+    /**
+     * Array to parses clinic's Schedule to. 
+    */
+      private int[][] calendar;
       
          /**
      * Path to calendar file on the classpath, injected from properties.
@@ -37,7 +44,10 @@ public class ExcelParser {
       @Value("${calendar.file.path}")
     private String filePath;
       
-      
+    /**
+     * Loads calendar data from Excel file on startup.
+     * Initializes empty calendar if loading fails.
+     */
     @PostConstruct
     public void init() {
     

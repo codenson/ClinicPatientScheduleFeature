@@ -399,21 +399,21 @@ public class ClinicCalendarTest {
 
         assertFalse(clinicCalendar.patientreservation(patient1));
 
-        int[][] clinic2 = {
-                { 1, 1, 1, 1 },
-                { 1, 1, 1, 1 },
-                { 1, 1, 1, 1 },
-                { 1, 1, 1, 1 }
+         int[][] clinic2 = {
+                 { 1, 1, 1, 1 },
+                 { 1, 1, 1, 1 },
+                 { 1, 1, 1, 1 },
+                 { 1, 1, 1, 1 }
 
-        };
-        int[][] patient2 = {
-                { 1, 1, 1, 1 },
-                { 1, 1, 1, 1 }
+         };
+         int[][] patient2 = {
+                 { 1, 1, 1, 1 },
+                 { 1, 1, 1, 1 }
 
-        };
-        clinicCalendar.UpdateMatrix(clinic2);
+         };
+         clinicCalendar.UpdateMatrix(clinic2);
 
-        assertFalse(clinicCalendar.patientreservation(patient2));
+         assertFalse(clinicCalendar.patientreservation(patient2));
 
     }
 }

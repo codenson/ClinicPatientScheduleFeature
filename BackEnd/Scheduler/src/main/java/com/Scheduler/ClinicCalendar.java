@@ -24,29 +24,26 @@ import org.springframework.stereotype.Service;
  */
 public class ClinicCalendar {
 
-    private final ExcelParser excelParser; 
+    private final ExcelParser excelParser;
     /**
      * The clinic calendar matrix. 0 = free, 1 = occupied.
      */
-    private int[][] calendar ; 
-    private int[][] compressedPatientcalendar = {{1}};
-    
-
+    private int[][] calendar;
+    private int[][] compressedPatientcalendar ; 
 
     /**
      * The start row found for the last successful match, or -1 if none.
      */
     private int foundStartRow = -1;
 
+    public ClinicCalendar(ExcelParser excelParser) {
+        this.excelParser = excelParser;
 
-    
-      public ClinicCalendar(ExcelParser excelParser){
-        this.excelParser = excelParser; 
-  
-       calendar = excelParser.getParsedExcelTable(); 
-        
-    
-    
+    }
+
+    @PostConstruct
+    public void init() {
+        calendar = excelParser.getParsedExcelTable();
     }
 
     public void setUpcalendar(int[][] arr) {
@@ -54,10 +51,9 @@ public class ClinicCalendar {
 
     }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   /**
-    * Method to print the 2D Clinic's calendar. 
-    */
+    /**
+     * Method to print the 2D Clinic's calendar.
+     */
     private void printMatrixValues() {
         System.out.println("\nCalendar array (rows):");
         for (int i = 0; i < calendar.length; i++) {
@@ -68,10 +64,11 @@ public class ClinicCalendar {
             System.out.println();
         }
     }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     /**
      * Calendar getter
+     *
      * @return 2d array of the clinic's calendar
      */
     public int[][] getCalendar() {
