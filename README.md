@@ -245,5 +245,5 @@ The `foundStartRow` field stores the last successful match position. While state
 
 The collision detection uses short-circuit evaluation (`&& !collision`) to exit early when conflicts are found, improving performance for densely occupied calendars.
 
-
+<img width="1170" height="387" alt="Image" src="https://github.com/user-attachments/assets/80e7d3e4-b8d4-43da-865e-8a399626fec8" />
 
