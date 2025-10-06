@@ -9,8 +9,9 @@ import org.springframework.core.io.ClassPathResource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 /**
  * ClinicCalendar represents the clinic's schedule as a 2D integer matrix and
  * provides operations to load the calendar, test whether a patient schedule can
@@ -30,49 +31,13 @@ public class ClinicCalendar {
     private int[][] calendar ; 
     private int[][] compressedPatientcalendar = {{1}};
     
-  
-    /**
-     * Default rows used when loading from Excel.
-     */
-//    private final int rows = 37;
-//
-//    /**
-//     * Default columns used when loading from Excel.
-//     */
-//    private final int cols = 4;
+
 
     /**
      * The start row found for the last successful match, or -1 if none.
      */
     private int foundStartRow = -1;
 
-    /**
-     * Path to calendar file on the classpath, injected from properties.
-     */
-//    @Value("${calendar.file.path}")
-//    private String filePath;
-/**
- * Loads the clinic calendar from Excel file on startup.
- * Initializes empty calendar if file loading fails.
- */
-//    @PostConstruct
-//    public void init() {
-//    
-//
-//        try {
-//            ClassPathResource resource = new ClassPathResource(filePath);
-//
-//            try (InputStream is = resource.getInputStream()) {
-//                loadFromExcel(is);
-// 
-//                printMatrixValues();
-//            }
-//        } catch (IOException e) {
-//
-//            e.printStackTrace();
-//            calendar = new int[rows][cols];
-//        }
-//    }
 
     
       public ClinicCalendar(ExcelParser excelParser){
@@ -89,43 +54,6 @@ public class ClinicCalendar {
 
     }
 
-//    /**
-//     * Replace the in-memory clinic calendar with the provided matrix.
-//     * @param arr the new calendar matrix (rows x cols). Caller is responsible
-//     * for ensuring valid dimensions.
-//     */
-//    private void loadFromExcel(InputStream is) throws IOException {
-//        calendar = new int[rows][cols];
-//
-//        try (Workbook workbook = new XSSFWorkbook(is)) {
-//            Sheet sheet = workbook.getSheetAt(0);
-//            for (int i = 0; i < rows; i++) {
-//                Row row = sheet.getRow(i);
-//                if (row == null) {
-//                    continue;
-//                }
-//                for (int j = 0; j < cols; j++) {
-//                    Cell cell = row.getCell(j);
-//                    if (cell == null) {
-//                        calendar[i][j] = 0;
-//                        continue;
-//                    }
-//                    if (cell.getCellType() == CellType.NUMERIC) {
-//                        calendar[i][j] = (int) cell.getNumericCellValue();
-//                    } else if (cell.getCellType() == CellType.STRING) {
-//                        try {
-//                            calendar[i][j] = Integer.parseInt(cell.getStringCellValue());
-//                        } catch (NumberFormatException e) {
-//                            calendar[i][j] = 0;
-//                        }
-//                    } else {
-//                        calendar[i][j] = 0;
-//                    }
-//                }
-//            }
-//        }
-//        
-//    }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    /**
     * Method to print the 2D Clinic's calendar. 
